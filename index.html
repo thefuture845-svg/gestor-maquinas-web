@@ -2,68 +2,84 @@
 <html lang="pt-MZ">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#123c69">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Gestor Máquinas</title>
-
 <style>
-:root{--blue:#123c69;--blue2:#1f6fb2;--bg:#f3f6fa;--text:#17202a;--muted:#687585;--green:#16845b;--orange:#c87908;--red:#c0392b;--border:#e0e6ed}
+:root{--b:#123c69;--b2:#1f6fb2;--bg:#f3f6fa;--mut:#687585;--ok:#16845b;--wa:#c87908;--er:#c0392b;--bd:#e0e6ed}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
-.login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#123c69,#1f6fb2);padding:20px}
-.login-box{background:#fff;border-radius:14px;padding:30px;width:min(420px,100%)}
-.login-box input{display:block;width:100%;padding:12px;margin:8px 0 15px;border:1px solid var(--border);border-radius:7px}
-.login-error{color:var(--red);min-height:20px;margin-bottom:10px}
+body{margin:0;font:14px Arial;background:var(--bg);color:#17202a}
+.login{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#123c69,#1f6fb2);padding:20px}
+.loginbox,.panel{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:22px}
+.loginbox{width:min(600px,100%)}
+.loginbox input,select,textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:7px;margin:6px 0 14px}
+label{font-size:13px;color:var(--mut)}
+.err{color:var(--er);min-height:18px}
 .app{display:flex;min-height:100vh}
-.sidebar{width:245px;background:var(--blue);color:#fff;padding:20px 14px}
-.brand{font-size:21px;font-weight:bold;padding:8px 12px 25px}
+.side{width:245px;background:var(--b);color:#fff;padding:20px 14px}
+.brand{font-size:20px;font-weight:bold;padding:8px 12px 25px}
 .brand small{display:block;font-size:11px;opacity:.7;margin-top:5px}
-nav button{width:100%;border:0;background:transparent;color:#dbe9f7;text-align:left;padding:13px 14px;border-radius:8px;font-size:15px;cursor:pointer;margin:2px 0}
-nav button:hover,nav button.active{background:#245785;color:#fff}
-.main{flex:1;padding:28px;max-width:1400px;margin:auto}
-.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-.card,.panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 2px 7px #193b5d0b}
-.label{color:var(--muted);font-size:13px}
-.number{font-size:30px;font-weight:bold;margin-top:8px}
-.green{color:var(--green)}.orange{color:var(--orange)}.red{color:var(--red)}
-.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
-.table-wrap{overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
-th{color:var(--muted);font-size:12px;text-transform:uppercase}
-.status{padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}
-.ok{background:#e4f5ed;color:var(--green)}.warn{background:#fff2d8;color:var(--orange)}.bad{background:#fde9e7;color:var(--red)}
-.btn{border:0;background:var(--blue2);color:#fff;padding:10px 15px;border-radius:7px;cursor:pointer;font-weight:bold}
-.btn.secondary{background:#e8eef5;color:var(--blue)}
+nav button{width:100%;background:transparent;border:0;color:#dbe9f7;text-align:left;padding:12px;border-radius:8px;cursor:pointer}
+nav button.active,nav button:hover{background:#245785;color:#fff}
+.main{flex:1;padding:25px;max-width:1400px;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.card{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:18px}
+.num{font-size:28px;font-weight:bold;margin-top:8px}
+.green{color:var(--ok)}.orange{color:var(--wa)}.red{color:var(--er)}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
 .section{display:none}.section.active{display:block}
-.notice{padding:12px;background:#fff7e5;border-left:4px solid var(--orange);border-radius:5px;margin-bottom:14px;color:#79500b;font-size:14px}
-@media(max-width:800px){.sidebar{width:70px;padding:14px 8px}.brand{font-size:0;padding:8px 5px 20px}.brand:first-letter{font-size:24px}nav button{font-size:0;text-align:center;padding:13px 4px}nav button:first-letter{font-size:20px}.main{padding:18px}.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.top{display:block}}
+.btn{border:0;border-radius:7px;padding:10px 14px;background:var(--b2);color:#fff;font-weight:bold;cursor:pointer}
+.secondary{background:#e8eef5;color:var(--b)}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--bd);white-space:nowrap}
+.muted{color:var(--mut);font-size:13px}
+.notice{padding:12px;background:#fff7e5;border-left:4px solid var(--wa);margin-bottom:12px}
+.modal{display:none;position:fixed;inset:0;background:#102b4666;place-items:center;padding:18px}
+.modal.show{display:grid}
+.modalbox{background:#fff;border-radius:12px;padding:22px;width:min(600px,100%)}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.full{grid-column:1/-1}
+.actions{display:flex;gap:8px;margin-top:10px}
+@media(max-width:800px){
+.side{width:70px;padding:12px 7px}
+.brand{font-size:0}
+.brand:first-letter{font-size:22px}
+nav button{font-size:0;text-align:center}
+nav button:first-letter{font-size:20px}
+.main{padding:15px}
+.cards{grid-template-columns:1fr 1fr}
+.grid{grid-template-columns:1fr}
+.formgrid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.top{display:block}
+.top .btn{margin-top:8px}
+}
 </style>
 </head>
 
 <body>
 
-<div id="loginScreen" class="login">
-  <div class="login-box">
+<div id="login" class="login">
+  <div class="loginbox">
     <h1>⚙️ Gestor Máquinas</h1>
     <p>Entre com a sua conta.</p>
 
     <form id="loginForm">
       <label>
         Utilizador
-        <input id="loginUser" value="julio" required>
+        <input id="user" value="julio" required>
       </label>
 
       <label>
         Palavra-passe
-        <input id="loginPassword" type="password" required>
+        <input id="pass" type="password" required>
       </label>
 
-      <div id="loginError" class="login-error"></div>
+      <div id="error" class="err"></div>
 
-      <button class="btn" type="submit" style="width:100%">
+      <button class="btn" style="width:100%">
         Entrar
       </button>
     </form>
@@ -72,14 +88,14 @@ th{color:var(--muted);font-size:12px;text-transform:uppercase}
 
 <div id="app" class="app">
 
-  <aside class="sidebar">
+  <aside class="side">
     <div class="brand">
       ⚙️ Gestor Máquinas
       <small>Gestão de fotocopiadoras</small>
     </div>
 
     <nav>
-      <button data-page="dashboard">📊 Dashboard</button>
+      <button data-page="dash">📊 Dashboard</button>
       <button data-page="machines">🖨️ Máquinas</button>
       <button data-page="clients">👥 Clientes</button>
       <button data-page="maintenance">🔧 Manutenção</button>
@@ -90,113 +106,188 @@ th{color:var(--muted);font-size:12px;text-transform:uppercase}
 
   <main class="main">
 
-    <section id="dashboard" class="section active">
+    <section id="dash" class="section active">
       <div class="top">
         <h1>Dashboard</h1>
+
         <div>
-          <b id="loggedUserName">Utilizador</b>
-          <button class="btn secondary" onclick="loadOnlineData()">⟳ Atualizar</button>
+          <b id="who">Utilizador</b>
+          <button class="btn secondary" onclick="load()">⟳ Atualizar</button>
           <button class="btn secondary" onclick="logout()">Sair</button>
         </div>
       </div>
 
       <div class="cards">
-        <div class="card"><div class="label">Total de máquinas</div><div id="totalMachines" class="number">0</div></div>
-        <div class="card"><div class="label">Em funcionamento</div><div id="workingMachines" class="number green">0</div></div>
-        <div class="card"><div class="label">Em manutenção</div><div id="maintenanceMachines" class="number orange">0</div></div>
-        <div class="card"><div class="label">Com avaria</div><div id="brokenMachines" class="number red">0</div></div>
+        <div class="card">
+          Máquinas
+          <div id="total" class="num">0</div>
+        </div>
+
+        <div class="card">
+          Normais
+          <div id="normal" class="num green">0</div>
+        </div>
+
+        <div class="card">
+          Manutenção
+          <div id="maint" class="num orange">0</div>
+        </div>
+
+        <div class="card">
+          Avariadas
+          <div id="broken" class="num red">0</div>
+        </div>
       </div>
 
       <div class="grid">
         <div class="panel">
           <h2>Máquinas atribuídas</h2>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Modelo</th><th>Série</th><th>Cliente</th><th>Estado</th></tr></thead>
-              <tbody id="dashboardMachines"></tbody>
-            </table>
-          </div>
+          <div id="dashMachines"></div>
         </div>
 
         <div class="panel">
           <h2>Alertas</h2>
-          <div class="notice">📦 Toner com estoque baixo.</div>
-          <div class="notice">🔧 Manutenção pendente.</div>
-          <div class="notice">⚠️ Erro registado.</div>
+          <div class="notice">📦 Verifique os níveis de toner.</div>
+          <div class="notice">🔧 Consulte as manutenções pendentes.</div>
         </div>
       </div>
     </section>
 
     <section id="machines" class="section">
-      <div class="top"><h1>Máquinas</h1></div>
+      <div class="top">
+        <h1>Máquinas</h1>
+        <button class="btn" onclick="openMachine()">+ Adicionar máquina</button>
+      </div>
+
       <div class="panel">
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Modelo</th><th>Série</th><th>Cliente</th><th>Contador</th><th>Estado</th></tr></thead>
-            <tbody id="machinesBody"></tbody>
-          </table>
-        </div>
+        <div id="machineTable"></div>
       </div>
     </section>
 
     <section id="clients" class="section">
-      <div class="top"><h1>Clientes</h1></div>
+      <div class="top">
+        <h1>Clientes</h1>
+      </div>
+
       <div class="panel">
-        <table>
-          <thead><tr><th>Nome</th><th>Contacto</th><th>Localização</th></tr></thead>
-          <tbody id="clientsBody"></tbody>
-        </table>
+        <div id="clientTable"></div>
       </div>
     </section>
 
     <section id="maintenance" class="section">
-      <div class="top"><h1>Manutenção</h1></div>
+      <div class="top">
+        <h1>Manutenção</h1>
+      </div>
+
       <div class="panel">
-        <table>
-          <thead><tr><th>Data</th><th>Máquina</th><th>Serviço</th><th>Técnico</th><th>Estado</th></tr></thead>
-          <tbody id="maintenanceBody"></tbody>
-        </table>
+        <div id="maintenanceTable"></div>
       </div>
     </section>
 
     <section id="stock" class="section">
-      <div class="top"><h1>Consumíveis</h1></div>
+      <div class="top">
+        <h1>Consumíveis</h1>
+      </div>
+
       <div class="panel">
-        <table>
-          <thead><tr><th>Item</th><th>Compatibilidade</th><th>Quantidade</th><th>Mínimo</th><th>Estado</th></tr></thead>
-          <tbody id="stockBody"></tbody>
-        </table>
+        <div id="stockTable"></div>
       </div>
     </section>
 
     <section id="users" class="section">
-      <div class="top"><h1>Utilizadores</h1></div>
+      <div class="top">
+        <h1>Utilizadores</h1>
+      </div>
+
       <div class="panel">
-        <table>
-          <thead><tr><th>Nome</th><th>Utilizador</th><th>Perfil</th><th>Estado</th></tr></thead>
-          <tbody id="usersBody"></tbody>
-        </table>
+        <div id="userTable"></div>
       </div>
     </section>
 
   </main>
 </div>
 
+<div id="machineModal" class="modal">
+  <div class="modalbox">
+    <h2>Adicionar máquina</h2>
+
+    <form id="machineForm" class="formgrid">
+
+      <label>
+        Marca / Modelo
+        <input id="model" required>
+      </label>
+
+      <label>
+        Número de série
+        <input id="serial" required>
+      </label>
+
+      <label>
+        Cliente
+        <input id="client" required placeholder="Nuno Voabil ou Colégio Cinderella">
+      </label>
+
+      <label>
+        Técnico
+        <input id="tech">
+      </label>
+
+      <label>
+        Contador
+        <input id="counter" type="number" min="0" value="0">
+      </label>
+
+      <label>
+        Estado
+        <select id="status">
+          <option>Normal</option>
+          <option>Manutenção</option>
+          <option>Avariada</option>
+        </select>
+      </label>
+
+      <label>
+        Nível de toner
+        <select id="toner">
+          <option>Cheio</option>
+          <option>Médio</option>
+          <option>Baixo</option>
+          <option>Vazio</option>
+        </select>
+      </label>
+
+      <label class="full">
+        Observações
+        <textarea id="notes"></textarea>
+      </label>
+
+      <div class="actions full">
+        <button class="btn">Guardar</button>
+        <button type="button" class="btn secondary" onclick="closeMachine()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
 <script>
-const API_BASE =
+const API =
   localStorage.getItem("gestorApiBase") ||
   "https://gestor-maquinas-api.onrender.com";
 
-let API_TOKEN = localStorage.getItem("gestorApiToken") || "";
-let CURRENT_ROLE = localStorage.getItem("gestorRole") || "";
-let CURRENT_USER = localStorage.getItem("gestorUser") || "";
+let token = localStorage.getItem("gestorApiToken") || "";
+let role = localStorage.getItem("gestorRole") || "";
+let username = localStorage.getItem("gestorUser") || "";
 
 let machines = [];
 let clients = [];
 let maintenance = [];
 let stock = [];
 
-const localUsers = [
+const users = [
   ["Júlio Francisco","julio","Administrador"],
   ["Celso","celso","Técnico"],
   ["Daniel","daniel","Técnico"],
@@ -204,56 +295,177 @@ const localUsers = [
   ["Colégio Cinderella","cinderella","Cliente"]
 ];
 
-function showApp() {
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("app").style.display = "flex";
+function permissions(currentRole) {
+  const allowed = {
+    Administrador:[
+      "dash",
+      "machines",
+      "clients",
+      "maintenance",
+      "stock",
+      "users"
+    ],
 
-  const user = localUsers.find(item => item[1] === CURRENT_USER);
+    Técnico:[
+      "dash",
+      "machines",
+      "maintenance",
+      "stock"
+    ],
 
-  if (user) {
-    document.getElementById("loggedUserName").textContent =
-      user[0] + " — " + user[2];
-  }
-
-  applyPermissions(CURRENT_ROLE);
-  loadOnlineData();
-}
-
-function logout() {
-  localStorage.removeItem("gestorSession");
-  localStorage.removeItem("gestorApiToken");
-  localStorage.removeItem("gestorRole");
-  localStorage.removeItem("gestorUser");
-  location.reload();
-}
-
-function applyPermissions(role) {
-  const permissions = {
-    Administrador:["dashboard","machines","clients","maintenance","stock","users"],
-    Técnico:["dashboard","machines","maintenance","stock"],
-    Cliente:["dashboard","machines","maintenance"]
-  };
-
-  const allowed = permissions[role] || [];
+    Cliente:[
+      "dash",
+      "machines",
+      "maintenance"
+    ]
+  }[currentRole] || [];
 
   document.querySelectorAll("nav button").forEach(button => {
     button.style.display =
-      allowed.includes(button.dataset.page) ? "block" : "none";
+      allowed.includes(button.dataset.page)
+        ? "block"
+        : "none";
   });
 }
 
-async function login(event) {
-  event.preventDefault();
+function owner() {
+  return {
+    nuno:"Nuno Voabil",
+    cinderella:"Colégio Cinderella"
+  }[username];
+}
 
-  const username = document.getElementById("loginUser").value;
-  const password = document.getElementById("loginPassword").value;
-  const error = document.getElementById("loginError");
+function visibleMachines() {
+  if (role === "Administrador" || role === "Técnico") {
+    return machines;
+  }
+
+  return machines.filter(machine => {
+    return machine.client === owner();
+  });
+}
+
+function makeTable(items, headers, fields) {
+  if (!items.length) {
+    return '<p class="muted">Ainda não existem registos.</p>';
+  }
+
+  return `
+    <table>
+      <thead>
+        <tr>
+          \({headers.map(header => `<th>\){header}</th>`).join("")}
+        </tr>
+      </thead>
+
+      <tbody>
+        ${items.map(item => `
+          <tr>
+            \({fields.map(field => `<td>\){item[field] || ""}</td>`).join("")}
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function render() {
+  const visible = visibleMachines();
+
+  document.getElementById("total").textContent = visible.length;
+
+  document.getElementById("normal").textContent =
+    visible.filter(item => item.status === "Normal").length;
+
+  document.getElementById("maint").textContent =
+    visible.filter(item => item.status === "Manutenção").length;
+
+  document.getElementById("broken").textContent =
+    visible.filter(item => item.status === "Avariada").length;
+
+  const machineTable = makeTable(
+    visible,
+    ["Modelo","Série","Cliente","Estado"],
+    ["model","serial","client","status"]
+  );
+
+  document.getElementById("dashMachines").innerHTML =
+    visible.length
+      ? machineTable
+      : '<p class="muted">Ainda não existem máquinas atribuídas a esta conta.</p>';
+
+  document.getElementById("machineTable").innerHTML = machineTable;
+
+  document.getElementById("clientTable").innerHTML = makeTable(
+    clients,
+    ["Nome","Contacto","Localização"],
+    ["name","phone","location"]
+  );
+
+  document.getElementById("maintenanceTable").innerHTML = makeTable(
+    maintenance,
+    ["Data","Máquina","Serviço","Técnico","Estado"],
+    ["date","machine","service","tech","status"]
+  );
+
+  document.getElementById("stockTable").innerHTML = makeTable(
+    stock,
+    ["Item","Compatibilidade","Quantidade","Mínimo"],
+    ["name","compatibility","quantity","minimum"]
+  );
+
+  document.getElementById("userTable").innerHTML = makeTable(
+    users.map(item => ({
+      name:item[0],
+      username:item[1],
+      role:item[2],
+      status:"Ativo"
+    })),
+    ["Nome","Utilizador","Perfil","Estado"],
+    ["name","username","role","status"]
+  );
+}
+
+async function load() {
+  if (!token) return;
+
+  const headers = {
+    "Authorization":"Bearer " + token
+  };
 
   try {
-    const response = await fetch(API_BASE + "/login", {
+    const responses = await Promise.all([
+      fetch(API + "/machines",{headers}),
+      fetch(API + "/clients",{headers}),
+      fetch(API + "/maintenance",{headers}),
+      fetch(API + "/stock",{headers})
+    ]);
+
+    if (responses[0].ok) machines = await responses[0].json();
+    if (responses[1].ok) clients = await responses[1].json();
+    if (responses[2].ok) maintenance = await responses[2].json();
+    if (responses[3].ok) stock = await responses[3].json();
+
+    render();
+
+  } catch (error) {
+    render();
+  }
+}
+
+document.getElementById("loginForm").onsubmit = async event => {
+  event.preventDefault();
+
+  try {
+    const response = await fetch(API + "/login", {
       method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({user:username,password:password})
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        user:user.value,
+        password:pass.value
+      })
     });
 
     const data = await response.json();
@@ -262,156 +474,93 @@ async function login(event) {
       throw new Error("Login inválido");
     }
 
-    API_TOKEN = data.token;
-    CURRENT_ROLE = data.role;
-    CURRENT_USER = data.username;
+    token = data.token;
+    role = data.role;
+    username = data.username;
 
-    localStorage.setItem("gestorApiToken",API_TOKEN);
-    localStorage.setItem("gestorRole",CURRENT_ROLE);
-    localStorage.setItem("gestorUser",CURRENT_USER);
+    localStorage.setItem("gestorApiToken",token);
+    localStorage.setItem("gestorRole",role);
+    localStorage.setItem("gestorUser",username);
     localStorage.setItem("gestorSession","active");
 
-    error.textContent = "";
-    showApp();
-
-  } catch (errorLogin) {
-    error.textContent = "Utilizador ou palavra-passe incorretos.";
-  }
-}
-
-async function loadOnlineData() {
-  if (!API_TOKEN) return;
-
-  const headers = {
-    "Authorization":"Bearer " + API_TOKEN
-  };
-
-  try {
-    const responses = await Promise.all([
-      fetch(API_BASE + "/machines",{headers}),
-      fetch(API_BASE + "/clients",{headers}),
-      fetch(API_BASE + "/maintenance",{headers}),
-      fetch(API_BASE + "/stock",{headers})
-    ]);
-
-    if (responses[0].ok) machines = await responses[0].json();
-    if (responses[1].ok) clients = await responses[1].json();
-    if (responses[2].ok) maintenance = await responses[2].json();
-    if (responses[3].ok) stock = await responses[3].json();
-
-    renderAll();
+    show();
 
   } catch (error) {
-    console.log("Não foi possível carregar os dados online.");
+    document.getElementById("error").textContent =
+      "Utilizador ou palavra-passe incorretos.";
   }
+};
+
+function show() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("app").style.display = "flex";
+
+  const account = users.find(item => item[1] === username);
+
+  document.getElementById("who").textContent =
+    (account ? account[0] : "Utilizador") + " — " + role;
+
+  permissions(role);
+  load();
 }
 
-function visibleMachines() {
-  if (CURRENT_ROLE === "Administrador" || CURRENT_ROLE === "Técnico") {
-    return machines;
-  }
+function logout() {
+  localStorage.clear();
+  location.reload();
+}
 
-  const clientNames = {
-    nuno:"Nuno Voabil",
-    cinderella:"Colégio Cinderella"
+function openMachine() {
+  document.getElementById("machineModal").classList.add("show");
+}
+
+function closeMachine() {
+  document.getElementById("machineModal").classList.remove("show");
+}
+
+document.getElementById("machineForm").onsubmit = async event => {
+  event.preventDefault();
+
+  const headers = {
+    "Authorization":"Bearer " + token,
+    "Content-Type":"application/json"
   };
 
-  const owner = clientNames[CURRENT_USER];
+  await fetch(API + "/machines", {
+    method:"POST",
+    headers,
+    body:JSON.stringify({
+      model:model.value,
+      serial:serial.value,
+      client:client.value,
+      tech:tech.value,
+      counter:Number(counter.value),
+      status:status.value,
+      toner:toner.value,
+      notes:notes.value
+    })
+  });
 
-  return machines.filter(machine => machine.client === owner);
-}
-
-function renderAll() {
-  const visible = visibleMachines();
-
-  const machineRows = visible.length
-    ? visible.map(machine => `
-      <tr>
-        <td>${machine.model || ""}</td>
-        <td>${machine.serial || ""}</td>
-        <td>${machine.client || ""}</td>
-        <td>${machine.counter || 0}</td>
-        <td>${machine.status || "Normal"}</td>
-      </tr>
-    `).join("")
-    : `<tr><td colspan="5">Ainda não existem máquinas atribuídas a esta conta.</td></tr>`;
-
-  document.getElementById("machinesBody").innerHTML = machineRows;
-  document.getElementById("dashboardMachines").innerHTML = machineRows;
-
-  document.getElementById("totalMachines").textContent = visible.length;
-  document.getElementById("workingMachines").textContent =
-    visible.filter(item => item.status === "Normal").length;
-  document.getElementById("maintenanceMachines").textContent =
-    visible.filter(item => item.status === "Manutenção").length;
-  document.getElementById("brokenMachines").textContent =
-    visible.filter(item => item.status === "Avariada").length;
-
-  document.getElementById("clientsBody").innerHTML =
-    clients.map(client => `
-      <tr>
-        <td>${client.name || ""}</td>
-        <td>${client.phone || ""}</td>
-        <td>${client.location || ""}</td>
-      </tr>
-    `).join("");
-
-  document.getElementById("maintenanceBody").innerHTML =
-    maintenance.map(item => `
-      <tr>
-        <td>${item.date || ""}</td>
-        <td>${item.machine || ""}</td>
-        <td>${item.service || ""}</td>
-        <td>${item.tech || ""}</td>
-        <td>${item.status || ""}</td>
-      </tr>
-    `).join("");
-
-  document.getElementById("stockBody").innerHTML =
-    stock.map(item => `
-      <tr>
-        <td>${item.name || ""}</td>
-        <td>${item.compatibility || ""}</td>
-        <td>${item.quantity || 0}</td>
-        <td>${item.minimum || 0}</td>
-        <td>${Number(item.quantity) <= Number(item.minimum) ? "Estoque baixo" : "Disponível"}</td>
-      </tr>
-    `).join("");
-
-  document.getElementById("usersBody").innerHTML =
-    localUsers.map(user => `
-      <tr>
-        <td>${user[0]}</td>
-        <td>${user[1]}</td>
-        <td>${user[2]}</td>
-        <td>Ativo</td>
-      </tr>
-    `).join("");
-}
-
-document.getElementById("loginForm").addEventListener("submit",login);
+  closeMachine();
+  load();
+};
 
 document.querySelectorAll("nav button").forEach(button => {
   button.onclick = () => {
-    document.querySelectorAll("nav button")
-      .forEach(item => item.classList.remove("active"));
-
-    button.classList.add("active");
-
     document.querySelectorAll(".section")
       .forEach(section => section.classList.remove("active"));
 
     document.getElementById(button.dataset.page)
       .classList.add("active");
+
+    document.querySelectorAll("nav button")
+      .forEach(item => item.classList.remove("active"));
+
+    button.classList.add("active");
   };
 });
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js").catch(() => {});
-}
-
 if (localStorage.getItem("gestorSession") === "active") {
-  showApp();
+  show();
 } else {
   document.getElementById("app").style.display = "none";
 }
@@ -419,4 +568,3 @@ if (localStorage.getItem("gestorSession") === "active") {
 
 </body>
 </html>
-
