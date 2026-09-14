@@ -1,278 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-MZ">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#123c69">
-  <link rel="manifest" href="manifest.webmanifest">
-  <title>Gestor Máquinas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123c69">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Gestor Máquinas</title>
 
-  <style>
-    :root {
-      --blue:#123c69;
-      --blue2:#1f6fb2;
-      --bg:#f3f6fa;
-      --text:#17202a;
-      --muted:#687585;
-      --green:#16845b;
-      --orange:#c87908;
-      --red:#c0392b;
-      --border:#e0e6ed;
-    }
-
-    * { box-sizing:border-box; }
-
-    body {
-      margin:0;
-      font-family:Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    .login {
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(135deg,#123c69,#1f6fb2);
-      padding:20px;
-    }
-
-    .login-box {
-      background:white;
-      border-radius:14px;
-      padding:30px;
-      width:min(420px,100%);
-    }
-
-    .login-box input {
-      display:block;
-      width:100%;
-      padding:12px;
-      margin:8px 0 15px;
-      border:1px solid var(--border);
-      border-radius:7px;
-    }
-
-    .login-error {
-      color:var(--red);
-      min-height:20px;
-      margin-bottom:10px;
-    }
-
-    .app {
-      display:flex;
-      min-height:100vh;
-    }
-
-    .sidebar {
-      width:245px;
-      background:var(--blue);
-      color:white;
-      padding:20px 14px;
-    }
-
-    .brand {
-      font-size:21px;
-      font-weight:bold;
-      padding:8px 12px 25px;
-    }
-
-    .brand small {
-      display:block;
-      font-size:11px;
-      opacity:.7;
-      margin-top:5px;
-    }
-
-    nav button {
-      width:100%;
-      border:0;
-      background:transparent;
-      color:#dbe9f7;
-      text-align:left;
-      padding:13px 14px;
-      border-radius:8px;
-      font-size:15px;
-      cursor:pointer;
-      margin:2px 0;
-    }
-
-    nav button:hover,
-    nav button.active {
-      background:#245785;
-      color:white;
-    }
-
-    .main {
-      flex:1;
-      padding:28px;
-      max-width:1400px;
-      margin:auto;
-    }
-
-    .top {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:15px;
-      margin-bottom:24px;
-    }
-
-    .cards {
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:16px;
-      margin-bottom:24px;
-    }
-
-    .card,
-    .panel {
-      background:white;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:20px;
-      box-shadow:0 2px 7px #193b5d0b;
-    }
-
-    .label {
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .number {
-      font-size:30px;
-      font-weight:bold;
-      margin-top:8px;
-    }
-
-    .green { color:var(--green); }
-    .orange { color:var(--orange); }
-    .red { color:var(--red); }
-
-    .grid {
-      display:grid;
-      grid-template-columns:1.4fr 1fr;
-      gap:18px;
-    }
-
-    .table-wrap {
-      overflow:auto;
-    }
-
-    table {
-      width:100%;
-      border-collapse:collapse;
-      font-size:14px;
-    }
-
-    th,
-    td {
-      text-align:left;
-      padding:13px 10px;
-      border-bottom:1px solid var(--border);
-      white-space:nowrap;
-    }
-
-    th {
-      color:var(--muted);
-      font-size:12px;
-      text-transform:uppercase;
-    }
-
-    .status {
-      padding:5px 9px;
-      border-radius:20px;
-      font-size:12px;
-      font-weight:bold;
-    }
-
-    .ok {
-      background:#e4f5ed;
-      color:var(--green);
-    }
-
-    .warn {
-      background:#fff2d8;
-      color:var(--orange);
-    }
-
-    .bad {
-      background:#fde9e7;
-      color:var(--red);
-    }
-
-    .btn {
-      border:0;
-      background:var(--blue2);
-      color:white;
-      padding:10px 15px;
-      border-radius:7px;
-      cursor:pointer;
-      font-weight:bold;
-    }
-
-    .btn.secondary {
-      background:#e8eef5;
-      color:var(--blue);
-    }
-
-    .section {
-      display:none;
-    }
-
-    .section.active {
-      display:block;
-    }
-
-    .notice {
-      padding:12px;
-      background:#fff7e5;
-      border-left:4px solid var(--orange);
-      border-radius:5px;
-      margin-bottom:14px;
-      color:#79500b;
-      font-size:14px;
-    }
-
-    @media(max-width:800px) {
-      .sidebar {
-        width:70px;
-        padding:14px 8px;
-      }
-
-      .brand {
-        font-size:0;
-        padding:8px 5px 20px;
-      }
-
-      .brand:first-letter {
-        font-size:24px;
-      }
-
-      nav button {
-        font-size:0;
-        text-align:center;
-        padding:13px 4px;
-      }
-
-      nav button:first-letter {
-        font-size:20px;
-      }
-
-      .main {
-        padding:18px;
-      }
-
-      .cards {
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .grid {
-        grid-template-columns:1fr;
-      }
-    }
-  </style>
+<style>
+:root{--blue:#123c69;--blue2:#1f6fb2;--bg:#f3f6fa;--text:#17202a;--muted:#687585;--green:#16845b;--orange:#c87908;--red:#c0392b;--border:#e0e6ed}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#123c69,#1f6fb2);padding:20px}
+.login-box{background:#fff;border-radius:14px;padding:30px;width:min(420px,100%)}
+.login-box input{display:block;width:100%;padding:12px;margin:8px 0 15px;border:1px solid var(--border);border-radius:7px}
+.login-error{color:var(--red);min-height:20px;margin-bottom:10px}
+.app{display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--blue);color:#fff;padding:20px 14px}
+.brand{font-size:21px;font-weight:bold;padding:8px 12px 25px}
+.brand small{display:block;font-size:11px;opacity:.7;margin-top:5px}
+nav button{width:100%;border:0;background:transparent;color:#dbe9f7;text-align:left;padding:13px 14px;border-radius:8px;font-size:15px;cursor:pointer;margin:2px 0}
+nav button:hover,nav button.active{background:#245785;color:#fff}
+.main{flex:1;padding:28px;max-width:1400px;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.card,.panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 2px 7px #193b5d0b}
+.label{color:var(--muted);font-size:13px}
+.number{font-size:30px;font-weight:bold;margin-top:8px}
+.green{color:var(--green)}.orange{color:var(--orange)}.red{color:var(--red)}
+.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+th{color:var(--muted);font-size:12px;text-transform:uppercase}
+.status{padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}
+.ok{background:#e4f5ed;color:var(--green)}.warn{background:#fff2d8;color:var(--orange)}.bad{background:#fde9e7;color:var(--red)}
+.btn{border:0;background:var(--blue2);color:#fff;padding:10px 15px;border-radius:7px;cursor:pointer;font-weight:bold}
+.btn.secondary{background:#e8eef5;color:var(--blue)}
+.section{display:none}.section.active{display:block}
+.notice{padding:12px;background:#fff7e5;border-left:4px solid var(--orange);border-radius:5px;margin-bottom:14px;color:#79500b;font-size:14px}
+@media(max-width:800px){.sidebar{width:70px;padding:14px 8px}.brand{font-size:0;padding:8px 5px 20px}.brand:first-letter{font-size:24px}nav button{font-size:0;text-align:center;padding:13px 4px}nav button:first-letter{font-size:20px}.main{padding:18px}.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.top{display:block}}
+</style>
 </head>
 
 <body>
@@ -327,30 +95,16 @@
         <h1>Dashboard</h1>
         <div>
           <b id="loggedUserName">Utilizador</b>
+          <button class="btn secondary" onclick="loadOnlineData()">⟳ Atualizar</button>
           <button class="btn secondary" onclick="logout()">Sair</button>
         </div>
       </div>
 
       <div class="cards">
-        <div class="card">
-          <div class="label">Total de máquinas</div>
-          <div class="number">24</div>
-        </div>
-
-        <div class="card">
-          <div class="label">Em funcionamento</div>
-          <div class="number green">19</div>
-        </div>
-
-        <div class="card">
-          <div class="label">Em manutenção</div>
-          <div class="number orange">3</div>
-        </div>
-
-        <div class="card">
-          <div class="label">Com avaria</div>
-          <div class="number red">2</div>
-        </div>
+        <div class="card"><div class="label">Total de máquinas</div><div id="totalMachines" class="number">0</div></div>
+        <div class="card"><div class="label">Em funcionamento</div><div id="workingMachines" class="number green">0</div></div>
+        <div class="card"><div class="label">Em manutenção</div><div id="maintenanceMachines" class="number orange">0</div></div>
+        <div class="card"><div class="label">Com avaria</div><div id="brokenMachines" class="number red">0</div></div>
       </div>
 
       <div class="grid">
@@ -358,14 +112,7 @@
           <h2>Máquinas atribuídas</h2>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Modelo</th>
-                  <th>Nº de série</th>
-                  <th>Cliente</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Modelo</th><th>Série</th><th>Cliente</th><th>Estado</th></tr></thead>
               <tbody id="dashboardMachines"></tbody>
             </table>
           </div>
@@ -381,22 +128,11 @@
     </section>
 
     <section id="machines" class="section">
-      <div class="top">
-        <h1>Máquinas</h1>
-      </div>
-
+      <div class="top"><h1>Máquinas</h1></div>
       <div class="panel">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Modelo</th>
-                <th>Nº de série</th>
-                <th>Cliente</th>
-                <th>Contador</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Modelo</th><th>Série</th><th>Cliente</th><th>Contador</th><th>Estado</th></tr></thead>
             <tbody id="machinesBody"></tbody>
           </table>
         </div>
@@ -404,85 +140,40 @@
     </section>
 
     <section id="clients" class="section">
-      <div class="top">
-        <h1>Clientes</h1>
-      </div>
-
+      <div class="top"><h1>Clientes</h1></div>
       <div class="panel">
         <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Contacto</th>
-              <th>Localização</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Nome</th><th>Contacto</th><th>Localização</th></tr></thead>
           <tbody id="clientsBody"></tbody>
         </table>
       </div>
     </section>
 
     <section id="maintenance" class="section">
-      <div class="top">
-        <h1>Manutenção</h1>
-      </div>
-
+      <div class="top"><h1>Manutenção</h1></div>
       <div class="panel">
         <table>
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>Máquina</th>
-              <th>Serviço</th>
-              <th>Técnico</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Data</th><th>Máquina</th><th>Serviço</th><th>Técnico</th><th>Estado</th></tr></thead>
           <tbody id="maintenanceBody"></tbody>
         </table>
       </div>
     </section>
 
     <section id="stock" class="section">
-      <div class="top">
-        <h1>Consumíveis</h1>
-      </div>
-
+      <div class="top"><h1>Consumíveis</h1></div>
       <div class="panel">
         <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Compatibilidade</th>
-              <th>Quantidade</th>
-              <th>Mínimo</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Item</th><th>Compatibilidade</th><th>Quantidade</th><th>Mínimo</th><th>Estado</th></tr></thead>
           <tbody id="stockBody"></tbody>
         </table>
       </div>
     </section>
 
     <section id="users" class="section">
-      <div class="top">
-        <h1>Utilizadores</h1>
-      </div>
-
+      <div class="top"><h1>Utilizadores</h1></div>
       <div class="panel">
-        <div class="notice">
-          Lista de utilizadores e perfis de acesso.
-        </div>
-
         <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Utilizador</th>
-              <th>Perfil</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Nome</th><th>Utilizador</th><th>Perfil</th><th>Estado</th></tr></thead>
           <tbody id="usersBody"></tbody>
         </table>
       </div>
@@ -496,108 +187,36 @@ const API_BASE =
   localStorage.getItem("gestorApiBase") ||
   "https://gestor-maquinas-api.onrender.com";
 
-let API_TOKEN =
-  localStorage.getItem("gestorApiToken") || "";
+let API_TOKEN = localStorage.getItem("gestorApiToken") || "";
+let CURRENT_ROLE = localStorage.getItem("gestorRole") || "";
+let CURRENT_USER = localStorage.getItem("gestorUser") || "";
 
-let CURRENT_ROLE =
-  localStorage.getItem("gestorRole") || "";
+let machines = [];
+let clients = [];
+let maintenance = [];
+let stock = [];
 
-let CURRENT_USER =
-  localStorage.getItem("gestorUser") || "";
-
-const users = [
-  {
-    name: "Júlio Francisco",
-    username: "julio",
-    role: "Administrador"
-  },
-  {
-    name: "Celso",
-    username: "celso",
-    role: "Técnico"
-  },
-  {
-    name: "Daniel",
-    username: "daniel",
-    role: "Técnico"
-  },
-  {
-    name: "Nuno Voabil",
-    username: "nuno",
-    role: "Cliente"
-  },
-  {
-    name: "Colégio Cinderella",
-    username: "cinderella",
-    role: "Cliente"
-  }
+const localUsers = [
+  ["Júlio Francisco","julio","Administrador"],
+  ["Celso","celso","Técnico"],
+  ["Daniel","daniel","Técnico"],
+  ["Nuno Voabil","nuno","Cliente"],
+  ["Colégio Cinderella","cinderella","Cliente"]
 ];
-
-const machines = [
-  {
-    model: "Ricoh MP 2014",
-    serial: "RCH-2014-001",
-    client: "Colégio Horizonte",
-    counter: 125430,
-    status: "Normal"
-  },
-  {
-    model: "Canon iR 2006N",
-    serial: "CAN-2006-014",
-    client: "Copy Center Maputo",
-    counter: 89210,
-    status: "Manutenção"
-  }
-];
-
-const clients = [
-  {
-    name: "Colégio Horizonte",
-    phone: "84 000 0000",
-    location: "Maputo"
-  },
-  {
-    name: "Copy Center Maputo",
-    phone: "86 000 0000",
-    location: "Baixa"
-  }
-];
-
-const maintenance = [];
-const stock = [];
-
-function visibleMachines() {
-  if (
-    CURRENT_ROLE === "Administrador" ||
-    CURRENT_ROLE === "Técnico"
-  ) {
-    return machines;
-  }
-
-  const clientByUser = {
-    nuno: "Nuno Voabil",
-    cinderella: "Colégio Cinderella"
-  };
-
-  const clientName = clientByUser[CURRENT_USER];
-
-  return machines.filter(machine => {
-    return machine.client === clientName;
-  });
-}
 
 function showApp() {
   document.getElementById("loginScreen").style.display = "none";
   document.getElementById("app").style.display = "flex";
 
-  const user = users.find(item => item.username === CURRENT_USER);
+  const user = localUsers.find(item => item[1] === CURRENT_USER);
 
   if (user) {
     document.getElementById("loggedUserName").textContent =
-      user.name + " — " + user.role;
+      user[0] + " — " + user[2];
   }
 
   applyPermissions(CURRENT_ROLE);
+  loadOnlineData();
 }
 
 function logout() {
@@ -610,36 +229,16 @@ function logout() {
 
 function applyPermissions(role) {
   const permissions = {
-    Administrador: [
-      "dashboard",
-      "machines",
-      "clients",
-      "maintenance",
-      "stock",
-      "users"
-    ],
-
-    Técnico: [
-      "dashboard",
-      "machines",
-      "maintenance",
-      "stock"
-    ],
-
-    Cliente: [
-      "dashboard",
-      "machines",
-      "maintenance"
-    ]
+    Administrador:["dashboard","machines","clients","maintenance","stock","users"],
+    Técnico:["dashboard","machines","maintenance","stock"],
+    Cliente:["dashboard","machines","maintenance"]
   };
 
   const allowed = permissions[role] || [];
 
   document.querySelectorAll("nav button").forEach(button => {
     button.style.display =
-      allowed.includes(button.dataset.page)
-        ? "block"
-        : "none";
+      allowed.includes(button.dataset.page) ? "block" : "none";
   });
 }
 
@@ -652,14 +251,9 @@ async function login(event) {
 
   try {
     const response = await fetch(API_BASE + "/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        user: username,
-        password: password
-      })
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({user:username,password:password})
     });
 
     const data = await response.json();
@@ -672,87 +266,130 @@ async function login(event) {
     CURRENT_ROLE = data.role;
     CURRENT_USER = data.username;
 
-    localStorage.setItem("gestorApiToken", API_TOKEN);
-    localStorage.setItem("gestorRole", CURRENT_ROLE);
-    localStorage.setItem("gestorUser", CURRENT_USER);
-    localStorage.setItem("gestorSession", "active");
+    localStorage.setItem("gestorApiToken",API_TOKEN);
+    localStorage.setItem("gestorRole",CURRENT_ROLE);
+    localStorage.setItem("gestorUser",CURRENT_USER);
+    localStorage.setItem("gestorSession","active");
 
     error.textContent = "";
     showApp();
 
   } catch (errorLogin) {
-    error.textContent =
-      "Utilizador ou palavra-passe incorretos.";
+    error.textContent = "Utilizador ou palavra-passe incorretos.";
   }
 }
 
-function renderUsers() {
-  document.getElementById("usersBody").innerHTML =
-    users.map(user => `
-      <tr>
-        <td>${user.name}</td>
-        <td>${user.username}</td>
-        <td>${user.role}</td>
-        <td><span class="status ok">Ativo</span></td>
-      </tr>
-    `).join("");
+async function loadOnlineData() {
+  if (!API_TOKEN) return;
+
+  const headers = {
+    "Authorization":"Bearer " + API_TOKEN
+  };
+
+  try {
+    const responses = await Promise.all([
+      fetch(API_BASE + "/machines",{headers}),
+      fetch(API_BASE + "/clients",{headers}),
+      fetch(API_BASE + "/maintenance",{headers}),
+      fetch(API_BASE + "/stock",{headers})
+    ]);
+
+    if (responses[0].ok) machines = await responses[0].json();
+    if (responses[1].ok) clients = await responses[1].json();
+    if (responses[2].ok) maintenance = await responses[2].json();
+    if (responses[3].ok) stock = await responses[3].json();
+
+    renderAll();
+
+  } catch (error) {
+    console.log("Não foi possível carregar os dados online.");
+  }
 }
 
-function renderMachines() {
-  const list = visibleMachines();
+function visibleMachines() {
+  if (CURRENT_ROLE === "Administrador" || CURRENT_ROLE === "Técnico") {
+    return machines;
+  }
 
-  const html = list.length
-    ? list.map(machine => `
+  const clientNames = {
+    nuno:"Nuno Voabil",
+    cinderella:"Colégio Cinderella"
+  };
+
+  const owner = clientNames[CURRENT_USER];
+
+  return machines.filter(machine => machine.client === owner);
+}
+
+function renderAll() {
+  const visible = visibleMachines();
+
+  const machineRows = visible.length
+    ? visible.map(machine => `
       <tr>
-        <td>${machine.model}</td>
-        <td>${machine.serial}</td>
-        <td>${machine.client}</td>
-        <td>${machine.counter}</td>
-        <td><span class="status ok">${machine.status}</span></td>
+        <td>${machine.model || ""}</td>
+        <td>${machine.serial || ""}</td>
+        <td>${machine.client || ""}</td>
+        <td>${machine.counter || 0}</td>
+        <td>${machine.status || "Normal"}</td>
       </tr>
     `).join("")
-    : `
-      <tr>
-        <td colspan="5">
-          Ainda não existem máquinas atribuídas a esta conta.
-        </td>
-      </tr>
-    `;
+    : `<tr><td colspan="5">Ainda não existem máquinas atribuídas a esta conta.</td></tr>`;
 
-  document.getElementById("machinesBody").innerHTML = html;
-  document.getElementById("dashboardMachines").innerHTML = html;
-}
+  document.getElementById("machinesBody").innerHTML = machineRows;
+  document.getElementById("dashboardMachines").innerHTML = machineRows;
 
-function renderClients() {
+  document.getElementById("totalMachines").textContent = visible.length;
+  document.getElementById("workingMachines").textContent =
+    visible.filter(item => item.status === "Normal").length;
+  document.getElementById("maintenanceMachines").textContent =
+    visible.filter(item => item.status === "Manutenção").length;
+  document.getElementById("brokenMachines").textContent =
+    visible.filter(item => item.status === "Avariada").length;
+
   document.getElementById("clientsBody").innerHTML =
     clients.map(client => `
       <tr>
-        <td>${client.name}</td>
-        <td>${client.phone}</td>
-        <td>${client.location}</td>
+        <td>${client.name || ""}</td>
+        <td>${client.phone || ""}</td>
+        <td>${client.location || ""}</td>
+      </tr>
+    `).join("");
+
+  document.getElementById("maintenanceBody").innerHTML =
+    maintenance.map(item => `
+      <tr>
+        <td>${item.date || ""}</td>
+        <td>${item.machine || ""}</td>
+        <td>${item.service || ""}</td>
+        <td>${item.tech || ""}</td>
+        <td>${item.status || ""}</td>
+      </tr>
+    `).join("");
+
+  document.getElementById("stockBody").innerHTML =
+    stock.map(item => `
+      <tr>
+        <td>${item.name || ""}</td>
+        <td>${item.compatibility || ""}</td>
+        <td>${item.quantity || 0}</td>
+        <td>${item.minimum || 0}</td>
+        <td>${Number(item.quantity) <= Number(item.minimum) ? "Estoque baixo" : "Disponível"}</td>
+      </tr>
+    `).join("");
+
+  document.getElementById("usersBody").innerHTML =
+    localUsers.map(user => `
+      <tr>
+        <td>${user[0]}</td>
+        <td>${user[1]}</td>
+        <td>${user[2]}</td>
+        <td>Ativo</td>
       </tr>
     `).join("");
 }
 
-function renderMaintenance() {
-  document.getElementById("maintenanceBody").innerHTML = `
-    <tr>
-      <td colspan="5">Nenhum serviço registado.</td>
-    </tr>
-  `;
-}
-
-function renderStock() {
-  document.getElementById("stockBody").innerHTML = `
-    <tr>
-      <td colspan="5">Nenhum consumível registado.</td>
-    </tr>
-  `;
-}
-
-document
-  .getElementById("loginForm")
-  .addEventListener("submit", login);
+document.getElementById("loginForm").addEventListener("submit",login);
 
 document.querySelectorAll("nav button").forEach(button => {
   button.onclick = () => {
@@ -769,11 +406,9 @@ document.querySelectorAll("nav button").forEach(button => {
   };
 });
 
-renderUsers();
-renderMachines();
-renderClients();
-renderMaintenance();
-renderStock();
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js").catch(() => {});
+}
 
 if (localStorage.getItem("gestorSession") === "active") {
   showApp();
@@ -784,3 +419,4 @@ if (localStorage.getItem("gestorSession") === "active") {
 
 </body>
 </html>
+
