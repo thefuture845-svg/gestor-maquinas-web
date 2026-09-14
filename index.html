@@ -39,7 +39,7 @@
     }
 
     .login-box {
-      background:#fff;
+      background:white;
       border-radius:14px;
       padding:30px;
       width:min(420px,100%);
@@ -117,10 +117,6 @@
       align-items:center;
       gap:15px;
       margin-bottom:24px;
-    }
-
-    .top h1 {
-      margin:0;
     }
 
     .cards {
@@ -275,10 +271,6 @@
       .grid {
         grid-template-columns:1fr;
       }
-
-      .top {
-        display:block;
-      }
     }
   </style>
 </head>
@@ -335,7 +327,6 @@
         <h1>Dashboard</h1>
         <div>
           <b id="loggedUserName">Utilizador</b>
-          <button class="btn secondary" onclick="syncData()">⟳ Sincronizar</button>
           <button class="btn secondary" onclick="logout()">Sair</button>
         </div>
       </div>
@@ -364,14 +355,14 @@
 
       <div class="grid">
         <div class="panel">
-          <h2>Máquinas</h2>
+          <h2>Máquinas atribuídas</h2>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
                   <th>Modelo</th>
+                  <th>Nº de série</th>
                   <th>Cliente</th>
-                  <th>Contador</th>
                   <th>Estado</th>
                 </tr>
               </thead>
@@ -384,7 +375,7 @@
           <h2>Alertas</h2>
           <div class="notice">📦 Toner com estoque baixo.</div>
           <div class="notice">🔧 Manutenção pendente.</div>
-          <div class="notice">⚠️ Máquina com erro registado.</div>
+          <div class="notice">⚠️ Erro registado.</div>
         </div>
       </div>
     </section>
@@ -480,7 +471,7 @@
 
       <div class="panel">
         <div class="notice">
-          Utilizadores e respetivos perfis de acesso.
+          Lista de utilizadores e perfis de acesso.
         </div>
 
         <table>
@@ -572,30 +563,28 @@ const clients = [
   }
 ];
 
-const maintenance = [
-  {
-    date: "14/09/2026",
-    machine: "Canon iR 2006N",
-    service: "Troca de toner",
-    tech: "Júlio Francisco",
-    status: "Agendada"
-  }
-];
+const maintenance = [];
+const stock = [];
 
-const stock = [
-  {
-    name: "Toner Preto",
-    compatibility: "Ricoh MP 2014",
-    quantity: 2,
-    minimum: 3
-  },
-  {
-    name: "Toner Preto",
-    compatibility: "Canon iR 2006N",
-    quantity: 9,
-    minimum: 2
+function visibleMachines() {
+  if (
+    CURRENT_ROLE === "Administrador" ||
+    CURRENT_ROLE === "Técnico"
+  ) {
+    return machines;
   }
-];
+
+  const clientByUser = {
+    nuno: "Nuno Voabil",
+    cinderella: "Colégio Cinderella"
+  };
+
+  const clientName = clientByUser[CURRENT_USER];
+
+  return machines.filter(machine => {
+    return machine.client === clientName;
+  });
+}
 
 function showApp() {
   document.getElementById("loginScreen").style.display = "none";
@@ -629,12 +618,14 @@ function applyPermissions(role) {
       "stock",
       "users"
     ],
+
     Técnico: [
       "dashboard",
       "machines",
       "maintenance",
       "stock"
     ],
+
     Cliente: [
       "dashboard",
       "machines",
@@ -689,15 +680,11 @@ async function login(event) {
     error.textContent = "";
     showApp();
 
-  } catch (e) {
+  } catch (errorLogin) {
     error.textContent =
       "Utilizador ou palavra-passe incorretos.";
   }
 }
-
-document
-  .getElementById("loginForm")
-  .addEventListener("submit", login);
 
 function renderUsers() {
   document.getElementById("usersBody").innerHTML =
@@ -712,15 +699,25 @@ function renderUsers() {
 }
 
 function renderMachines() {
-  const html = machines.map(machine => `
-    <tr>
-      <td>${machine.model}</td>
-      <td>${machine.serial}</td>
-      <td>${machine.client}</td>
-      <td>${machine.counter}</td>
-      <td><span class="status ok">${machine.status}</span></td>
-    </tr>
-  `).join("");
+  const list = visibleMachines();
+
+  const html = list.length
+    ? list.map(machine => `
+      <tr>
+        <td>${machine.model}</td>
+        <td>${machine.serial}</td>
+        <td>${machine.client}</td>
+        <td>${machine.counter}</td>
+        <td><span class="status ok">${machine.status}</span></td>
+      </tr>
+    `).join("")
+    : `
+      <tr>
+        <td colspan="5">
+          Ainda não existem máquinas atribuídas a esta conta.
+        </td>
+      </tr>
+    `;
 
   document.getElementById("machinesBody").innerHTML = html;
   document.getElementById("dashboardMachines").innerHTML = html;
@@ -738,49 +735,24 @@ function renderClients() {
 }
 
 function renderMaintenance() {
-  document.getElementById("maintenanceBody").innerHTML =
-    maintenance.map(item => `
-      <tr>
-        <td>${item.date}</td>
-        <td>${item.machine}</td>
-        <td>${item.service}</td>
-        <td>${item.tech}</td>
-        <td><span class="status warn">${item.status}</span></td>
-      </tr>
-    `).join("");
+  document.getElementById("maintenanceBody").innerHTML = `
+    <tr>
+      <td colspan="5">Nenhum serviço registado.</td>
+    </tr>
+  `;
 }
 
 function renderStock() {
-  document.getElementById("stockBody").innerHTML =
-    stock.map(item => `
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.compatibility}</td>
-        <td>${item.quantity}</td>
-        <td>${item.minimum}</td>
-        <td>
-          <span class="status ${
-            item.quantity <= item.minimum ? "bad" : "ok"
-          }">
-            ${
-              item.quantity <= item.minimum
-                ? "Estoque baixo"
-                : "Disponível"
-            }
-          </span>
-        </td>
-      </tr>
-    `).join("");
+  document.getElementById("stockBody").innerHTML = `
+    <tr>
+      <td colspan="5">Nenhum consumível registado.</td>
+    </tr>
+  `;
 }
 
-async function syncData() {
-  if (!API_TOKEN) {
-    alert("Entre primeiro no sistema.");
-    return;
-  }
-
-  alert("Dados prontos para sincronização.");
-}
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", login);
 
 document.querySelectorAll("nav button").forEach(button => {
   button.onclick = () => {
@@ -796,12 +768,6 @@ document.querySelectorAll("nav button").forEach(button => {
       .classList.add("active");
   };
 });
-
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("service-worker.js")
-    .catch(() => {});
-}
 
 renderUsers();
 renderMachines();
