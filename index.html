@@ -2,10 +2,7 @@
 <html lang="pt-MZ">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Gestor Máquinas">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#123c69">
   <link rel="manifest" href="manifest.webmanifest">
   <title>Gestor Máquinas</title>
@@ -45,34 +42,21 @@
       background:#fff;
       border-radius:14px;
       padding:30px;
-      width:min(410px,100%);
-      box-shadow:0 15px 50px #0003;
-    }
-
-    .login-box h1 {
-      margin:0 0 8px;
-      color:var(--blue);
-    }
-
-    .login-box p {
-      color:var(--muted);
-      font-size:14px;
-      margin-bottom:22px;
+      width:min(420px,100%);
     }
 
     .login-box input {
       display:block;
       width:100%;
       padding:12px;
-      margin:8px 0 14px;
+      margin:8px 0 15px;
       border:1px solid var(--border);
       border-radius:7px;
     }
 
     .login-error {
       color:var(--red);
-      font-size:13px;
-      min-height:18px;
+      min-height:20px;
       margin-bottom:10px;
     }
 
@@ -85,19 +69,18 @@
       width:245px;
       background:var(--blue);
       color:white;
-      padding:22px 14px;
+      padding:20px 14px;
     }
 
     .brand {
       font-size:21px;
       font-weight:bold;
-      padding:8px 12px 28px;
+      padding:8px 12px 25px;
     }
 
     .brand small {
       display:block;
       font-size:11px;
-      font-weight:normal;
       opacity:.7;
       margin-top:5px;
     }
@@ -115,10 +98,10 @@
       margin:2px 0;
     }
 
-    nav button.active,
-    nav button:hover {
+    nav button:hover,
+    nav button.active {
       background:#245785;
-      color:#fff;
+      color:white;
     }
 
     .main {
@@ -132,17 +115,12 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      margin-bottom:26px;
+      gap:15px;
+      margin-bottom:24px;
     }
 
     .top h1 {
       margin:0;
-      font-size:26px;
-    }
-
-    .user {
-      color:var(--muted);
-      font-size:14px;
     }
 
     .cards {
@@ -154,19 +132,19 @@
 
     .card,
     .panel {
-      background:#fff;
+      background:white;
       border:1px solid var(--border);
       border-radius:12px;
       padding:20px;
       box-shadow:0 2px 7px #193b5d0b;
     }
 
-    .card .label {
+    .label {
       color:var(--muted);
       font-size:13px;
     }
 
-    .card .number {
+    .number {
       font-size:30px;
       font-weight:bold;
       margin-top:8px;
@@ -180,11 +158,6 @@
       display:grid;
       grid-template-columns:1.4fr 1fr;
       gap:18px;
-    }
-
-    .panel h2 {
-      font-size:18px;
-      margin:0 0 16px;
     }
 
     .table-wrap {
@@ -256,60 +229,6 @@
       display:block;
     }
 
-    .form {
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:14px;
-    }
-
-    .form label {
-      font-size:13px;
-      color:var(--muted);
-    }
-
-    .form input,
-    .form select {
-      display:block;
-      width:100%;
-      margin-top:6px;
-      padding:11px;
-      border:1px solid var(--border);
-      border-radius:7px;
-      font-size:14px;
-    }
-
-    .form .full {
-      grid-column:1/-1;
-    }
-
-    .actions {
-      display:flex;
-      gap:8px;
-      margin-top:18px;
-    }
-
-    .modal {
-      display:none;
-      position:fixed;
-      inset:0;
-      background:#102b4666;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-    }
-
-    .modal.show {
-      display:flex;
-    }
-
-    .modal-box {
-      background:#fff;
-      border-radius:12px;
-      padding:24px;
-      width:min(560px,100%);
-      box-shadow:0 12px 40px #0003;
-    }
-
     .notice {
       padding:12px;
       background:#fff7e5;
@@ -357,12 +276,8 @@
         grid-template-columns:1fr;
       }
 
-      .form {
-        grid-template-columns:1fr;
-      }
-
-      .top h1 {
-        font-size:22px;
+      .top {
+        display:block;
       }
     }
   </style>
@@ -373,22 +288,22 @@
 <div id="loginScreen" class="login">
   <div class="login-box">
     <h1>⚙️ Gestor Máquinas</h1>
-    <p>Entre com a sua conta para gerir as máquinas.</p>
+    <p>Entre com a sua conta.</p>
 
     <form id="loginForm">
       <label>
         Utilizador
-        <input id="loginUser" autocomplete="username" required value="julio">
+        <input id="loginUser" value="julio" required>
       </label>
 
       <label>
         Palavra-passe
-        <input id="loginPassword" type="password" autocomplete="current-password" required>
+        <input id="loginPassword" type="password" required>
       </label>
 
       <div id="loginError" class="login-error"></div>
 
-      <button class="btn" style="width:100%" type="submit">
+      <button class="btn" type="submit" style="width:100%">
         Entrar
       </button>
     </form>
@@ -404,7 +319,7 @@
     </div>
 
     <nav>
-      <button class="active" data-page="dashboard">📊 Dashboard</button>
+      <button data-page="dashboard">📊 Dashboard</button>
       <button data-page="machines">🖨️ Máquinas</button>
       <button data-page="clients">👥 Clientes</button>
       <button data-page="maintenance">🔧 Manutenção</button>
@@ -418,8 +333,7 @@
     <section id="dashboard" class="section active">
       <div class="top">
         <h1>Dashboard</h1>
-
-        <div class="user">
+        <div>
           <b id="loggedUserName">Utilizador</b>
           <button class="btn secondary" onclick="syncData()">⟳ Sincronizar</button>
           <button class="btn secondary" onclick="logout()">Sair</button>
@@ -450,29 +364,27 @@
 
       <div class="grid">
         <div class="panel">
-          <h2>Estado das máquinas</h2>
-
+          <h2>Máquinas</h2>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Máquina</th>
+                  <th>Modelo</th>
                   <th>Cliente</th>
                   <th>Contador</th>
                   <th>Estado</th>
                 </tr>
               </thead>
-
-              <tbody id="machinesBody"></tbody>
+              <tbody id="dashboardMachines"></tbody>
             </table>
           </div>
         </div>
 
         <div class="panel">
-          <h2>Alertas recentes</h2>
-          <div class="notice">🔧 Revisão de máquina agendada.</div>
+          <h2>Alertas</h2>
           <div class="notice">📦 Toner com estoque baixo.</div>
-          <div class="notice">⚠️ Erro de alimentação de papel.</div>
+          <div class="notice">🔧 Manutenção pendente.</div>
+          <div class="notice">⚠️ Máquina com erro registado.</div>
         </div>
       </div>
     </section>
@@ -480,7 +392,6 @@
     <section id="machines" class="section">
       <div class="top">
         <h1>Máquinas</h1>
-        <button class="btn" onclick="showMachineForm()">+ Adicionar máquina</button>
       </div>
 
       <div class="panel">
@@ -488,14 +399,14 @@
           <table>
             <thead>
               <tr>
-                <th>Marca / Modelo</th>
+                <th>Modelo</th>
                 <th>Nº de série</th>
                 <th>Cliente</th>
                 <th>Contador</th>
                 <th>Estado</th>
               </tr>
             </thead>
-            <tbody id="machinesList"></tbody>
+            <tbody id="machinesBody"></tbody>
           </table>
         </div>
       </div>
@@ -504,71 +415,61 @@
     <section id="clients" class="section">
       <div class="top">
         <h1>Clientes</h1>
-        <button class="btn" onclick="showClientForm()">+ Adicionar cliente</button>
       </div>
 
       <div class="panel">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Empresa</th>
-                <th>Contacto</th>
-                <th>Localização</th>
-                <th>Máquinas</th>
-              </tr>
-            </thead>
-            <tbody id="clientsBody"></tbody>
-          </table>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Contacto</th>
+              <th>Localização</th>
+            </tr>
+          </thead>
+          <tbody id="clientsBody"></tbody>
+        </table>
       </div>
     </section>
 
     <section id="maintenance" class="section">
       <div class="top">
         <h1>Manutenção</h1>
-        <button class="btn" onclick="showMaintenanceForm()">+ Registar serviço</button>
       </div>
 
       <div class="panel">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Máquina</th>
-                <th>Serviço</th>
-                <th>Técnico</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody id="maintenanceBody"></tbody>
-          </table>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Máquina</th>
+              <th>Serviço</th>
+              <th>Técnico</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="maintenanceBody"></tbody>
+        </table>
       </div>
     </section>
 
     <section id="stock" class="section">
       <div class="top">
         <h1>Consumíveis</h1>
-        <button class="btn" onclick="showStockForm()">+ Adicionar item</button>
       </div>
 
       <div class="panel">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Compatibilidade</th>
-                <th>Quantidade</th>
-                <th>Mínimo</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody id="stockBody"></tbody>
-          </table>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Compatibilidade</th>
+              <th>Quantidade</th>
+              <th>Mínimo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="stockBody"></tbody>
+        </table>
       </div>
     </section>
 
@@ -579,23 +480,20 @@
 
       <div class="panel">
         <div class="notice">
-          Perfis registados no sistema.
+          Utilizadores e respetivos perfis de acesso.
         </div>
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Utilizador</th>
-                <th>Perfil</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-
-            <tbody id="usersBody"></tbody>
-          </table>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Utilizador</th>
+              <th>Perfil</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody"></tbody>
+        </table>
       </div>
     </section>
 
@@ -615,9 +513,6 @@ let CURRENT_ROLE =
 
 let CURRENT_USER =
   localStorage.getItem("gestorUser") || "";
-
-const loginScreen = document.getElementById("loginScreen");
-const app = document.getElementById("app");
 
 const users = [
   {
@@ -647,24 +542,24 @@ const users = [
   }
 ];
 
-let machines = [
+const machines = [
   {
     model: "Ricoh MP 2014",
     serial: "RCH-2014-001",
     client: "Colégio Horizonte",
     counter: 125430,
-    status: "ok"
+    status: "Normal"
   },
   {
     model: "Canon iR 2006N",
     serial: "CAN-2006-014",
     client: "Copy Center Maputo",
     counter: 89210,
-    status: "warn"
+    status: "Manutenção"
   }
 ];
 
-let clients = [
+const clients = [
   {
     name: "Colégio Horizonte",
     phone: "84 000 0000",
@@ -677,18 +572,34 @@ let clients = [
   }
 ];
 
-let maintenance = [];
-let stock = [];
+const maintenance = [
+  {
+    date: "14/09/2026",
+    machine: "Canon iR 2006N",
+    service: "Troca de toner",
+    tech: "Júlio Francisco",
+    status: "Agendada"
+  }
+];
 
-const labels = {
-  ok: ["Normal", "ok"],
-  warn: ["Manutenção", "warn"],
-  bad: ["Avariada", "bad"]
-};
+const stock = [
+  {
+    name: "Toner Preto",
+    compatibility: "Ricoh MP 2014",
+    quantity: 2,
+    minimum: 3
+  },
+  {
+    name: "Toner Preto",
+    compatibility: "Canon iR 2006N",
+    quantity: 9,
+    minimum: 2
+  }
+];
 
 function showApp() {
-  loginScreen.style.display = "none";
-  app.style.display = "flex";
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "flex";
 
   const user = users.find(item => item.username === CURRENT_USER);
 
@@ -705,7 +616,6 @@ function logout() {
   localStorage.removeItem("gestorApiToken");
   localStorage.removeItem("gestorRole");
   localStorage.removeItem("gestorUser");
-
   location.reload();
 }
 
@@ -719,14 +629,12 @@ function applyPermissions(role) {
       "stock",
       "users"
     ],
-
     Técnico: [
       "dashboard",
       "machines",
       "maintenance",
       "stock"
     ],
-
     Cliente: [
       "dashboard",
       "machines",
@@ -747,9 +655,9 @@ function applyPermissions(role) {
 async function login(event) {
   event.preventDefault();
 
-  const error = document.getElementById("loginError");
   const username = document.getElementById("loginUser").value;
   const password = document.getElementById("loginPassword").value;
+  const error = document.getElementById("loginError");
 
   try {
     const response = await fetch(API_BASE + "/login", {
@@ -782,7 +690,8 @@ async function login(event) {
     showApp();
 
   } catch (e) {
-    error.textContent = "Utilizador ou palavra-passe incorretos.";
+    error.textContent =
+      "Utilizador ou palavra-passe incorretos.";
   }
 }
 
@@ -790,141 +699,87 @@ document
   .getElementById("loginForm")
   .addEventListener("submit", login);
 
+function renderUsers() {
+  document.getElementById("usersBody").innerHTML =
+    users.map(user => `
+      <tr>
+        <td>${user.name}</td>
+        <td>${user.username}</td>
+        <td>${user.role}</td>
+        <td><span class="status ok">Ativo</span></td>
+      </tr>
+    `).join("");
+}
+
+function renderMachines() {
+  const html = machines.map(machine => `
+    <tr>
+      <td>${machine.model}</td>
+      <td>${machine.serial}</td>
+      <td>${machine.client}</td>
+      <td>${machine.counter}</td>
+      <td><span class="status ok">${machine.status}</span></td>
+    </tr>
+  `).join("");
+
+  document.getElementById("machinesBody").innerHTML = html;
+  document.getElementById("dashboardMachines").innerHTML = html;
+}
+
+function renderClients() {
+  document.getElementById("clientsBody").innerHTML =
+    clients.map(client => `
+      <tr>
+        <td>${client.name}</td>
+        <td>${client.phone}</td>
+        <td>${client.location}</td>
+      </tr>
+    `).join("");
+}
+
+function renderMaintenance() {
+  document.getElementById("maintenanceBody").innerHTML =
+    maintenance.map(item => `
+      <tr>
+        <td>${item.date}</td>
+        <td>${item.machine}</td>
+        <td>${item.service}</td>
+        <td>${item.tech}</td>
+        <td><span class="status warn">${item.status}</span></td>
+      </tr>
+    `).join("");
+}
+
+function renderStock() {
+  document.getElementById("stockBody").innerHTML =
+    stock.map(item => `
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.compatibility}</td>
+        <td>${item.quantity}</td>
+        <td>${item.minimum}</td>
+        <td>
+          <span class="status ${
+            item.quantity <= item.minimum ? "bad" : "ok"
+          }">
+            ${
+              item.quantity <= item.minimum
+                ? "Estoque baixo"
+                : "Disponível"
+            }
+          </span>
+        </td>
+      </tr>
+    `).join("");
+}
+
 async function syncData() {
   if (!API_TOKEN) {
     alert("Entre primeiro no sistema.");
     return;
   }
 
-  const headers = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer " + API_TOKEN
-  };
-
-  try {
-    for (const item of machines) {
-      await fetch(API_BASE + "/machines", {
-        method: "POST",
-        headers,
-        body: JSON.stringify(item)
-      });
-    }
-
-    for (const item of clients) {
-      await fetch(API_BASE + "/clients", {
-        method: "POST",
-        headers,
-        body: JSON.stringify(item)
-      });
-    }
-
-    alert("Dados sincronizados com sucesso.");
-
-  } catch (error) {
-    alert("Não foi possível sincronizar.");
-  }
-}
-
-function renderUsers() {
-  const body = document.getElementById("usersBody");
-
-  body.innerHTML = users.map(user => `
-    <tr>
-      <td>${user.name}</td>
-      <td>${user.username}</td>
-      <td>${user.role}</td>
-      <td>
-        <span class="status ok">Ativo</span>
-      </td>
-    </tr>
-  `).join("");
-}
-
-function renderMachines() {
-  const body = document.getElementById("machinesList");
-
-  body.innerHTML = machines.map(machine => `
-    <tr>
-      <td>${machine.model}</td>
-      <td>${machine.serial}</td>
-      <td>${machine.client}</td>
-      <td>${machine.counter}</td>
-      <td>
-        <span class="status ${labels[machine.status][1]}">
-          ${labels[machine.status][0]}
-        </span>
-      </td>
-    </tr>
-  `).join("");
-}
-
-function renderClients() {
-  const body = document.getElementById("clientsBody");
-
-  body.innerHTML = clients.map(client => `
-    <tr>
-      <td>${client.name}</td>
-      <td>${client.phone}</td>
-      <td>${client.location}</td>
-      <td>0</td>
-    </tr>
-  `).join("");
-}
-
-function renderMaintenance() {
-  const body = document.getElementById("maintenanceBody");
-
-  body.innerHTML = maintenance.map(item => `
-    <tr>
-      <td>${item.date}</td>
-      <td>${item.machine}</td>
-      <td>${item.service}</td>
-      <td>${item.tech}</td>
-      <td>
-        <span class="status warn">${item.status}</span>
-      </td>
-    </tr>
-  `).join("");
-}
-
-function renderStock() {
-  const body = document.getElementById("stockBody");
-
-  body.innerHTML = stock.map(item => `
-    <tr>
-      <td>${item.name}</td>
-      <td>${item.compatibility}</td>
-      <td>${item.quantity}</td>
-      <td>${item.minimum}</td>
-      <td>
-        <span class="status ${
-          item.quantity <= item.minimum ? "bad" : "ok"
-        }">
-          ${
-            item.quantity <= item.minimum
-              ? "Estoque baixo"
-              : "Disponível"
-          }
-        </span>
-      </td>
-    </tr>
-  `).join("");
-}
-
-function showMachineForm() {
-  alert("Formulário de nova máquina será ativado na próxima atualização.");
-}
-
-function showClientForm() {
-  alert("Formulário de novo cliente será ativado na próxima atualização.");
-}
-
-function showMaintenanceForm() {
-  alert("Formulário de manutenção será ativado na próxima atualização.");
-}
-
-function showStockForm() {
-  alert("Formulário de consumível será ativado na próxima atualização.");
+  alert("Dados prontos para sincronização.");
 }
 
 document.querySelectorAll("nav button").forEach(button => {
@@ -957,7 +812,7 @@ renderStock();
 if (localStorage.getItem("gestorSession") === "active") {
   showApp();
 } else {
-  app.style.display = "none";
+  document.getElementById("app").style.display = "none";
 }
 </script>
 
