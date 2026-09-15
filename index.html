@@ -1,614 +1,207 @@
 <!DOCTYPE html>
 <html lang="pt-MZ">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123c69">
-<title>Gestor Máquinas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teste de Login — Gestor Máquinas</title>
 
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#17202a}
-#app{display:none;min-height:100vh}
-#loginScreen{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#123c69,#1f6fb2)}
-.loginBox{width:min(420px,100%);padding:30px;background:#fff;border-radius:14px;box-shadow:0 10px 35px #0003}
-input,select,textarea{width:100%;padding:11px;margin:6px 0 14px;border:1px solid #dfe5ec;border-radius:7px;font:inherit}
-label{display:block;color:#687585;font-size:13px}
-.error{min-height:22px;margin-bottom:8px;color:#c0392b}
-.button{border:0;border-radius:7px;padding:10px 15px;background:#1f6fb2;color:#fff;font-weight:bold;cursor:pointer}
-.button.secondary{background:#e8eef5;color:#123c69}
-.sidebar{width:245px;flex-shrink:0;padding:20px 14px;background:#123c69;color:#fff}
-.brand{padding:8px 12px 25px;font-size:20px;font-weight:bold}
-.brand small{display:block;margin-top:5px;opacity:.7;font-size:11px;font-weight:normal}
-nav button{display:block;width:100%;margin:2px 0;padding:13px;border:0;border-radius:8px;background:transparent;color:#dbe9f7;text-align:left;cursor:pointer}
-nav button:hover,nav button.active{background:#245785;color:#fff}
-.main{flex:1;max-width:1400px;margin:auto;padding:25px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px}
-.top h1{margin:0}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px}
-.card,.panel{padding:20px;border:1px solid #e0e6ed;border-radius:12px;background:#fff;box-shadow:0 2px 8px #193b5d0b}
-.number{margin-top:8px;font-size:30px;font-weight:bold}
-.green{color:#16845b}.orange{color:#c87908}.red{color:#c0392b}
-.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
-.section{display:none}.section.active{display:block}
-.tableWrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:12px 9px;border-bottom:1px solid #e0e6ed;text-align:left;white-space:nowrap}
-th{color:#687585;font-size:12px;text-transform:uppercase}
-.muted{color:#687585;font-size:13px}
-.notice{padding:12px;margin-bottom:12px;border-left:4px solid #c87908;border-radius:5px;background:#fff7e5}
-.modal{display:none;position:fixed;inset:0;z-index:20;place-items:center;padding:18px;background:#102b4666}
-.modal.show{display:grid}
-.modalBox{width:min(620px,100%);max-height:95vh;overflow-y:auto;padding:24px;border-radius:12px;background:#fff}
-.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.full{grid-column:1/-1}
-.actions{display:flex;gap:8px;margin-top:8px}
-@media(max-width:800px){
-.sidebar{width:70px;padding:14px 8px}
-.brand{padding:8px 4px 20px;font-size:0}
-.brand:first-letter{font-size:24px}
-nav button{padding:13px 4px;font-size:0;text-align:center}
-nav button:first-letter{font-size:20px}
-.main{padding:16px}
-.cards{grid-template-columns:1fr 1fr}
-.grid{grid-template-columns:1fr}
-.top{display:block}
-.top .button{margin-top:10px}
-.formGrid{grid-template-columns:1fr}
-.full{grid-column:auto}
-}
-</style>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #123c69, #1f6fb2);
+    }
+
+    .box {
+      width: min(420px, 100%);
+      padding: 28px;
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 10px 35px #0004;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #123c69;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      color: #687585;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #dce3eb;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border: 0;
+      border-radius: 7px;
+      background: #1f6fb2;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+    }
+
+    #message {
+      min-height: 24px;
+      margin-top: 15px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .success {
+      color: #16845b;
+    }
+
+    .error {
+      color: #c0392b;
+    }
+
+    #dashboard {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 8px;
+      background: #e8f5ee;
+      color: #16845b;
+    }
+  </style>
 </head>
 
 <body>
 
-<div id="loginScreen">
-  <div class="loginBox">
+  <div class="box">
     <h1>⚙️ Gestor Máquinas</h1>
-    <p>Entre com a sua conta.</p>
+    <p>Teste de ligação ao servidor.</p>
 
     <form id="loginForm">
+
       <label>
         Utilizador
-        <input id="loginUser" value="julio" required>
+        <input id="username" value="julio" required>
       </label>
 
       <label>
         Palavra-passe
-        <input id="loginPassword" type="password" required>
+        <input id="password" type="password" required>
       </label>
 
-      <div id="loginError" class="error"></div>
-
-      <button class="button" type="submit" style="width:100%">
+      <button id="loginButton" type="submit">
         Entrar
       </button>
     </form>
-  </div>
-</div>
 
-<div id="app">
+    <div id="message"></div>
 
-  <aside class="sidebar">
-    <div class="brand">
-      ⚙️ Gestor Máquinas
-      <small>Gestão de fotocopiadoras</small>
+    <div id="dashboard">
+      <strong>Login realizado com sucesso.</strong>
+      <p id="userInfo"></p>
+      <p>A ligação entre o site e a API está funcionando.</p>
     </div>
-
-    <nav>
-      <button data-page="dashboard">📊 Dashboard</button>
-      <button data-page="machines">🖨️ Máquinas</button>
-      <button data-page="clients">👥 Clientes</button>
-      <button data-page="maintenance">🔧 Manutenção</button>
-      <button data-page="stock">📦 Consumíveis</button>
-      <button data-page="users">👤 Utilizadores</button>
-    </nav>
-  </aside>
-
-  <main class="main">
-
-    <section id="dashboard" class="section active">
-      <div class="top">
-        <h1>Dashboard</h1>
-
-        <div>
-          <b id="loggedUser">Utilizador</b>
-          <button class="button secondary" id="refreshButton">⟳ Atualizar</button>
-          <button class="button secondary" id="logoutButton">Sair</button>
-        </div>
-      </div>
-
-      <div class="cards">
-        <div class="card">
-          Total de máquinas
-          <div id="totalMachines" class="number">0</div>
-        </div>
-
-        <div class="card">
-          Em funcionamento
-          <div id="normalMachines" class="number green">0</div>
-        </div>
-
-        <div class="card">
-          Em manutenção
-          <div id="maintenanceMachines" class="number orange">0</div>
-        </div>
-
-        <div class="card">
-          Com avaria
-          <div id="brokenMachines" class="number red">0</div>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div class="panel">
-          <h2>Máquinas atribuídas</h2>
-          <div id="dashboardMachines"></div>
-        </div>
-
-        <div class="panel">
-          <h2>Alertas</h2>
-          <div class="notice">📦 Verifique os níveis de toner.</div>
-          <div class="notice">🔧 Consulte as manutenções pendentes.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="machines" class="section">
-      <div class="top">
-        <h1>Máquinas</h1>
-        <button id="addMachineButton" class="button">
-          + Adicionar máquina
-        </button>
-      </div>
-
-      <div class="panel">
-        <div id="machinesTable"></div>
-      </div>
-    </section>
-
-    <section id="clients" class="section">
-      <div class="top"><h1>Clientes</h1></div>
-      <div class="panel"><div id="clientsTable"></div></div>
-    </section>
-
-    <section id="maintenance" class="section">
-      <div class="top"><h1>Manutenção</h1></div>
-      <div class="panel"><div id="maintenanceTable"></div></div>
-    </section>
-
-    <section id="stock" class="section">
-      <div class="top"><h1>Consumíveis</h1></div>
-      <div class="panel"><div id="stockTable"></div></div>
-    </section>
-
-    <section id="users" class="section">
-      <div class="top"><h1>Utilizadores</h1></div>
-      <div class="panel"><div id="usersTable"></div></div>
-    </section>
-
-  </main>
-</div>
-
-<div id="machineModal" class="modal">
-  <div class="modalBox">
-    <h2>Adicionar máquina</h2>
-
-    <form id="machineForm" class="formGrid">
-
-      <label>
-        Marca / Modelo
-        <input id="machineModel" required>
-      </label>
-
-      <label>
-        Número de série
-        <input id="machineSerial" required>
-      </label>
-
-      <label>
-        Cliente
-        <input id="machineClient" required>
-      </label>
-
-      <label>
-        Técnico
-        <input id="machineTechnician">
-      </label>
-
-      <label>
-        Contador
-        <input id="machineCounter" type="number" min="0" value="0">
-      </label>
-
-      <label>
-        Estado
-        <select id="machineStatus">
-          <option value="Normal">Normal</option>
-          <option value="Manutenção">Manutenção</option>
-          <option value="Avariada">Avariada</option>
-        </select>
-      </label>
-
-      <label>
-        Toner
-        <select id="machineToner">
-          <option value="Cheio">Cheio</option>
-          <option value="Médio">Médio</option>
-          <option value="Baixo">Baixo</option>
-          <option value="Vazio">Vazio</option>
-        </select>
-      </label>
-
-      <label class="full">
-        Observações
-        <textarea id="machineNotes"></textarea>
-      </label>
-
-      <div class="actions full">
-        <button class="button" type="submit">Guardar</button>
-        <button class="button secondary" type="button" id="cancelMachine">
-          Cancelar
-        </button>
-      </div>
-
-    </form>
   </div>
-</div>
 
-<script>
-const API_BASE =
-  "https://gestor-maquinas-api.onrender.com";
+  <script>
+    const API_URL =
+      "https://gestor-maquinas-api.onrender.com";
 
-let token = localStorage.getItem("gestorApiToken") || "";
-let role = localStorage.getItem("gestorRole") || "";
-let username = localStorage.getItem("gestorUser") || "";
+    const form = document.getElementById("loginForm");
+    const button = document.getElementById("loginButton");
+    const message = document.getElementById("message");
+    const dashboard = document.getElementById("dashboard");
+    const userInfo = document.getElementById("userInfo");
 
-let machines = [];
-let clients = [];
-let maintenance = [];
-let stock = [];
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
 
-const users = [
-  ["Júlio Francisco", "julio", "Administrador"],
-  ["Celso", "celso", "Técnico"],
-  ["Daniel", "daniel", "Técnico"],
-  ["Nuno Voabil", "nuno", "Cliente"],
-  ["Colégio Cinderella", "cinderella", "Cliente"]
-];
+      message.className = "";
+      message.textContent = "A entrar...";
+      button.disabled = true;
 
-const get = id => document.getElementById(id);
+      const username =
+        document.getElementById("username").value.trim();
 
-function showLogin() {
-  get("loginScreen").style.display = "grid";
-  get("app").style.display = "none";
-}
+      const password =
+        document.getElementById("password").value;
 
-function showApp() {
-  get("loginScreen").style.display = "none";
-  get("app").style.display = "flex";
+      try {
+        const response = await fetch(API_URL + "/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            user: username,
+            password: password
+          })
+        });
 
-  const current = users.find(item => item[1] === username);
+        const data = await response.json();
 
-  get("loggedUser").textContent =
-    (current ? current[0] : username) + " — " + role;
+        if (!response.ok) {
+          throw new Error(
+            data.error || "O servidor rejeitou o login."
+          );
+        }
 
-  applyPermissions();
-  loadData();
-}
+        localStorage.setItem(
+          "gestorApiToken",
+          data.token
+        );
 
-function applyPermissions() {
-  const allowed = {
-    Administrador: [
-      "dashboard",
-      "machines",
-      "clients",
-      "maintenance",
-      "stock",
-      "users"
-    ],
+        localStorage.setItem(
+          "gestorRole",
+          data.role || ""
+        );
 
-    Técnico: [
-      "dashboard",
-      "machines",
-      "maintenance",
-      "stock"
-    ],
+        localStorage.setItem(
+          "gestorUser",
+          data.username || username
+        );
 
-    Cliente: [
-      "dashboard",
-      "machines",
-      "maintenance"
-    ]
-  }[role] || [];
+        message.className = "success";
+        message.textContent = "Login aceite.";
 
-  document.querySelectorAll("nav button").forEach(button => {
-    button.style.display =
-      allowed.includes(button.dataset.page)
-        ? "block"
-        : "none";
-  });
+        userInfo.textContent =
+          "Utilizador: " +
+          (data.name || username) +
+          " | Perfil: " +
+          (data.role || "Administrador");
 
-  get("addMachineButton").style.display =
-    role === "Administrador"
-      ? "inline-block"
-      : "none";
-}
+        dashboard.style.display = "block";
 
-function getVisibleMachines() {
-  if (role === "Administrador" || role === "Técnico") {
-    return machines;
-  }
+      } catch (error) {
+        message.className = "error";
+        message.textContent =
+          "Erro: " + error.message;
+      }
 
-  const owners = {
-    nuno: "Nuno Voabil",
-    cinderella: "Colégio Cinderella"
-  };
-
-  return machines.filter(machine => {
-    return machine.client === owners[username];
-  });
-}
-
-function table(list, headers, fields) {
-  if (!list.length) {
-    return '<p class="muted">Ainda não existem registos.</p>';
-  }
-
-  return `
-    <div class="tableWrap">
-      <table>
-        <thead>
-          <tr>
-            \({headers.map(item => `<th>\){item}</th>`).join("")}
-          </tr>
-        </thead>
-
-        <tbody>
-          ${list.map(item => `
-            <tr>
-              ${fields.map(field => `
-                <td>${item[field] ?? ""}</td>
-              `).join("")}
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>
-  `;
-}
-
-function render() {
-  const visible = getVisibleMachines();
-
-  get("totalMachines").textContent = visible.length;
-
-  get("normalMachines").textContent =
-    visible.filter(item => item.status === "Normal").length;
-
-  get("maintenanceMachines").textContent =
-    visible.filter(item => item.status === "Manutenção").length;
-
-  get("brokenMachines").textContent =
-    visible.filter(item => item.status === "Avariada").length;
-
-  const machineTable = table(
-    visible,
-    ["Modelo", "Série", "Cliente", "Contador", "Estado"],
-    ["model", "serial", "client", "counter", "status"]
-  );
-
-  get("dashboardMachines").innerHTML =
-    visible.length
-      ? machineTable
-      : '<p class="muted">Ainda não existem máquinas atribuídas a esta conta.</p>';
-
-  get("machinesTable").innerHTML = machineTable;
-
-  get("clientsTable").innerHTML = table(
-    clients,
-    ["Nome", "Contacto", "Localização"],
-    ["name", "phone", "location"]
-  );
-
-  get("maintenanceTable").innerHTML = table(
-    maintenance,
-    ["Data", "Máquina", "Serviço", "Técnico", "Estado"],
-    ["date", "machine", "service", "tech", "status"]
-  );
-
-  get("stockTable").innerHTML = table(
-    stock,
-    ["Item", "Compatibilidade", "Quantidade", "Mínimo"],
-    ["name", "compatibility", "quantity", "minimum"]
-  );
-
-  get("usersTable").innerHTML = table(
-    users.map(item => ({
-      name: item[0],
-      username: item[1],
-      role: item[2],
-      status: "Ativo"
-    })),
-    ["Nome", "Utilizador", "Perfil", "Estado"],
-    ["name", "username", "role", "status"]
-  );
-}
-
-async function login(event) {
-  event.preventDefault();
-
-  get("loginError").textContent = "A entrar...";
-
-  const user = get("loginUser").value.trim();
-  const password = get("loginPassword").value;
-
-  try {
-    const response = await fetch(API_BASE + "/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        user: user,
-        password: password
-      })
+      button.disabled = false;
     });
-
-    const data = await response.json();
-
-    if (!response.ok || !data.token) {
-      throw new Error("Login inválido");
-    }
-
-    token = data.token;
-    role = data.role;
-    username = data.username || user;
-
-    localStorage.setItem("gestorApiToken", token);
-    localStorage.setItem("gestorRole", role);
-    localStorage.setItem("gestorUser", username);
-    localStorage.setItem("gestorSession", "active");
-
-    get("loginError").textContent = "";
-    showApp();
-
-  } catch (error) {
-    get("loginError").textContent =
-      "Não foi possível entrar. Verifique o utilizador e a palavra-passe.";
-  }
-}
-
-async function loadData() {
-  if (!token) return;
-
-  const headers = {
-    "Authorization": "Bearer " + token
-  };
-
-  try {
-    const responses = await Promise.all([
-      fetch(API_BASE + "/machines", {headers}),
-      fetch(API_BASE + "/clients", {headers}),
-      fetch(API_BASE + "/maintenance", {headers}),
-      fetch(API_BASE + "/stock", {headers})
-    ]);
-
-    if (responses[0].ok) machines = await responses[0].json();
-    if (responses[1].ok) clients = await responses[1].json();
-    if (responses[2].ok) maintenance = await responses[2].json();
-    if (responses[3].ok) stock = await responses[3].json();
-
-    render();
-
-  } catch (error) {
-    render();
-  }
-}
-
-async function saveMachine(event) {
-  event.preventDefault();
-
-  try {
-    const response = await fetch(API_BASE + "/machines", {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: get("machineModel").value,
-        serial: get("machineSerial").value,
-        client: get("machineClient").value,
-        tech: get("machineTechnician").value,
-        counter: Number(get("machineCounter").value || 0),
-        status: get("machineStatus").value,
-        toner: get("machineToner").value,
-        notes: get("machineNotes").value
-      })
-    });
-
-    if (!response.ok) {
-      alert("Não foi possível guardar a máquina.");
-      return;
-    }
-
-    closeMachine();
-    await loadData();
-    alert("Máquina guardada com sucesso.");
-
-  } catch (error) {
-    alert("Não foi possível comunicar com o servidor.");
-  }
-}
-
-function openMachine() {
-  get("machineModal").classList.add("show");
-}
-
-function closeMachine() {
-  get("machineModal").classList.remove("show");
-  get("machineForm").reset();
-}
-
-function logout() {
-  localStorage.removeItem("gestorApiToken");
-  localStorage.removeItem("gestorRole");
-  localStorage.removeItem("gestorUser");
-  localStorage.removeItem("gestorSession");
-
-  token = "";
-  role = "";
-  username = "";
-
-  showLogin();
-}
-
-get("loginForm").addEventListener("submit", login);
-get("refreshButton").addEventListener("click", loadData);
-get("logoutButton").addEventListener("click", logout);
-get("addMachineButton").addEventListener("click", openMachine);
-get("cancelMachine").addEventListener("click", closeMachine);
-get("machineForm").addEventListener("submit", saveMachine);
-
-document.querySelectorAll("nav button").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".section").forEach(section => {
-      section.classList.remove("active");
-    });
-
-    document.querySelectorAll("nav button").forEach(item => {
-      item.classList.remove("active");
-    });
-
-    get(button.dataset.page).classList.add("active");
-    button.classList.add("active");
-  });
-});
-
-/* Remove versões antigas do cache e do service worker */
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.getRegistrations()
-    .then(registrations => {
-      registrations.forEach(registration => {
-        registration.unregister();
-      });
-    });
-
-  if ("caches" in window) {
-    caches.keys()
-      .then(keys => {
-        keys.forEach(key => caches.delete(key));
-      });
-  }
-}
-
-if (localStorage.getItem("gestorSession") === "active") {
-  showApp();
-} else {
-  showLogin();
-}
-</script>
+  </script>
 
 </body>
 </html>
